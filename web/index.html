@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Website Demo - Quảng Cáo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-globe"></i>
+                    Tuka Website
+                </h1>
+                <p class="subtitle">Khám phá các website demo đa dạng từ nhiều lĩnh vực khác nhau</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên, thể loại...">
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card clickable" onclick="filterByType('all')">
+                        <i class="fas fa-globe"></i>
+                        <h3 id="totalWebsites">0</h3>
+                        <p>Tổng website</p>
+                    </div>
+                    <div class="stat-card clickable" onclick="filterByType('new')">
+                        <i class="fas fa-star"></i>
+                        <h3 id="newWebsites">0</h3>
+                        <p>Website mới</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Website Grid -->
+            <section class="websites-section">
+                <div class="section-header">
+                    <h2>Danh Sách Website Demo</h2>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="websitesGrid" class="websites-grid">
+                    <!-- Website cards will be dynamically generated here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal for website details -->
+    <div id="websiteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <span id="modalCategory" class="category-badge"></span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3><i class="fas fa-link"></i> Demo Website</h3>
+                    <a id="modalDemoLink" href="#" target="_blank" class="demo-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Truy cập Demo
+                    </a>
+                </div>
+                <div class="modal-section" id="passwordSection" style="display: none;">
+                    <h3><i class="fas fa-lock"></i> Mật khẩu</h3>
+                    <div class="password-container">
+                        <input type="password" id="modalPassword" readonly>
+                        <button id="togglePassword" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button id="copyPassword" class="copy-btn">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-section" id="officialSection" style="display: none;">
+                    <h3><i class="fas fa-globe"></i> Website chính thức</h3>
+                    <a id="modalOfficialLink" href="#" target="_blank" class="official-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Truy cập Website chính thức
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Tuka Website. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

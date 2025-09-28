@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Quản lý Website Demo</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Đăng nhập Admin</h3>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Đăng nhập
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-container" id="adminContainer" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-cog"></i> Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#websites" class="nav-item" data-section="websites">
+                    <i class="fas fa-globe"></i>
+                    Quản lý Website
+                </a>
+                <a href="#add-website" class="nav-item" data-section="add-website">
+                    <i class="fas fa-plus"></i>
+                    Thêm Website
+                </a>
+                <a href="#settings" class="nav-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    Cài đặt
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="view-site-btn">
+                    <i class="fas fa-external-link-alt"></i>
+                    Xem Website
+                </a>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Đăng xuất
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-websites">0</h3>
+                            <p>Tổng Website</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="new-websites">0</h3>
+                            <p>Website Mới</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="last-sync">--:--</h3>
+                            <p>Lần đồng bộ cuối</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="sync-status">Online</h3>
+                            <p>Trạng thái kết nối</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="chart-card">
+                        <h3>Thống kê Traffic</h3>
+                        <div class="traffic-stats">
+                            <div class="traffic-item">
+                                <div class="traffic-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="traffic-content">
+                                    <h4 id="total-views">0</h4>
+                                    <p>Tổng lượt xem</p>
+                                </div>
+                            </div>
+                            <div class="traffic-item">
+                                <div class="traffic-icon">
+                                    <i class="fas fa-mouse-pointer"></i>
+                                </div>
+                                <div class="traffic-content">
+                                    <h4 id="total-clicks">0</h4>
+                                    <p>Tổng lượt click</p>
+                                </div>
+                            </div>
+                            <div class="traffic-item">
+                                <div class="traffic-icon">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </div>
+                                <div class="traffic-content">
+                                    <h4 id="demo-visits">0</h4>
+                                    <p>Lượt truy cập Demo</p>
+                                </div>
+                            </div>
+                            <div class="traffic-item">
+                                <div class="traffic-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="traffic-content">
+                                    <h4 id="official-visits">0</h4>
+                                    <p>Lượt truy cập Website chính thức</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Top Website được truy cập nhiều nhất</h3>
+                        <div id="top-websites" class="top-list">
+                            <!-- Top websites will be listed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Websites Management Section -->
+            <section id="websites" class="content-section">
+                <div class="section-header">
+                    <h2>Quản lý Website</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" id="addWebsiteBtn">
+                            <i class="fas fa-plus"></i>
+                            Thêm Website
+                        </button>
+                        <button class="btn btn-secondary" id="exportBtn">
+                            <i class="fas fa-download"></i>
+                            Xuất dữ liệu
+                        </button>
+                        <button class="btn btn-secondary" id="importBtn">
+                            <i class="fas fa-upload"></i>
+                            Nhập dữ liệu
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="admin-search" placeholder="Tìm kiếm website...">
+                        </div>
+                        <div class="filter-box">
+                            <select id="category-filter">
+                                <option value="">Tất cả danh mục</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Danh mục</th>
+                                <th>Demo URL</th>
+                                <th>Mật khẩu</th>
+                                <th>Website chính thức</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="websites-table-body">
+                            <!-- Table rows will be generated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add/Edit Website Section -->
+            <section id="add-website" class="content-section">
+                <div class="section-header">
+                    <h2 id="form-title">Thêm Website Mới</h2>
+                    <button class="btn btn-secondary" onclick="showWebsitesList()">
+                        <i class="fas fa-arrow-left"></i>
+                        Quay lại
+                    </button>
+                </div>
+
+                <form id="website-form" class="website-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="category">Danh mục *</label>
+                            <input type="text" id="category" name="category" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="demo">Demo URL *</label>
+                            <input type="url" id="demo" name="demo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="text" id="password" name="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="official">Website chính thức</label>
+                            <input type="url" id="official" name="official">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="isNew" name="isNew">
+                                <span class="checkmark"></span>
+                                Đánh dấu là website mới
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Lưu Website
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="content-section">
+                <div class="section-header">
+                    <h2>Cài đặt hệ thống</h2>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Quản lý dữ liệu</h3>
+                        <div class="setting-item">
+                            <label>Khôi phục dữ liệu mặc định</label>
+                            <button class="btn btn-warning" onclick="resetToDefault()">
+                                <i class="fas fa-undo"></i>
+                                Khôi phục
+                            </button>
+                        </div>
+                        <div class="setting-item">
+                            <label>Xóa tất cả dữ liệu</label>
+                            <button class="btn btn-danger" onclick="clearAllData()">
+                                <i class="fas fa-trash"></i>
+                                Xóa tất cả
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Xuất/Nhập dữ liệu</h3>
+                        <div class="setting-item">
+                            <label>Xuất dữ liệu JSON</label>
+                            <button class="btn btn-primary" onclick="exportData()">
+                                <i class="fas fa-download"></i>
+                                Xuất JSON
+                            </button>
+                        </div>
+                        <div class="setting-item">
+                            <label>Nhập dữ liệu từ file</label>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                            <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">
+                                <i class="fas fa-upload"></i>
+                                Chọn file
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Xác nhận</h3>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelButton">Hủy</button>
+                <button class="btn btn-danger" id="confirmButton">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="hidden-import" accept=".json" style="display: none;">
+
+    <!-- Include main script for sync functions -->
+    <script src="script.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>

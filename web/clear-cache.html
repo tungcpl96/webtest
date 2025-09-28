@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Cache - Tuka Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .btn {
+            background: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        .btn.danger {
+            background: #dc3545;
+        }
+        .btn.danger:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 Clear Cache & Cookies</h1>
+        <p>Để loại bỏ thông báo cũ và cache</p>
+
+        <button class="btn" onclick="clearCache()">Clear Cache & Cookies</button>
+        <button class="btn danger" onclick="hardRefresh()">Hard Refresh</button>
+        <button class="btn" onclick="goToMain()">Về Trang Chủ</button>
+
+        <div id="status" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        function showStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            const color = type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#17a2b8';
+            status.innerHTML = `<p style="color: ${color}">${message}</p>`;
+            setTimeout(() => status.innerHTML = '', 3000);
+        }
+
+        function clearCache() {
+            try {
+                // Clear localStorage
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Clear cookies
+                document.cookie.split(";").forEach(cookie => {
+                    const eqPos = cookie.indexOf("=");
+                    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+                });
+
+                showStatus('Cache và cookies đã được xóa!', 'success');
+            } catch (error) {
+                showStatus('Lỗi khi xóa cache: ' + error.message, 'error');
+            }
+        }
+
+        function hardRefresh() {
+            // Force hard refresh
+            window.location.reload(true);
+        }
+
+        function goToMain() {
+            window.location.href = 'index.html';
+        }
+
+        // Auto clear on load
+        window.addEventListener('load', () => {
+            console.log('Clear cache page loaded');
+            showStatus('Trang xóa cache đã load', 'info');
+        });
+    </script>
+</body>
+</html>
+
