@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Header background change on scroll
-    const header = document.querySelector('.header');
+    const headeraaa = document.querySelector('.header');
     window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
             header.style.background = 'rgba(255, 255, 255, 0.98)';
