@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const navLinks = document.querySelectorAll('.nav-menu a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
+                navMenu.classList.remove('activ1e');
                 navToggle.classList.remove('active');
             });
         });
