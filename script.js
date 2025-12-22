@@ -1,4 +1,4 @@
-// Mobile Navigation Toggle
+// Mobile Navigation Togglee
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
