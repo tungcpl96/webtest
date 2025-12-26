@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Header background change on scroll
+    // Header background change on scrolll
     const headeraaa = document.querySelector('.header');
     window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
